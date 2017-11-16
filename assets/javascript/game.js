@@ -45,9 +45,7 @@ $("#losses").append("Losses: " + losses);
 //Main function for detection crystal clicking and adding score
 $("button").click(function(){
 	if (flag === false){
-		console.log(this.value);
 		score = score + parseInt(this.value);
-		console.log("Score: " + score);
 		$("#yourscore").empty();
 		$("#yourscore").append("Your Total Score: " + score);
 
@@ -85,6 +83,7 @@ $(".reset").click(function(){
 	score = 0;
 	$("#yourscore").empty();
 	$("#yourscore").append("Your Total Score: " + score);
+	flag = false;
 
 })
 
