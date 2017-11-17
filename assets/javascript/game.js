@@ -50,7 +50,6 @@ $("#losses").append("Losses: " + losses);
 $("button").click(function(){
 	if (flag === false){
 		score = score + parseInt(this.value);
-		console.log(this.value);
 		$("#yourscore").empty();
 		$("#yourscore").append("Your Score: " + score);
 
