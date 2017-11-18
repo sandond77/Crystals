@@ -7,6 +7,9 @@ var gemValue3 = Math.floor(Math.random()*12)+1;
 var gemValue4 = Math.floor(Math.random()*12)+1;
 var score = 0;
 var flag = false;
+var audioWin = new Audio("assets/javascript/win.wav")
+var audioPing = new Audio("assets/javascript/ping.wav")
+var audioLose = new Audio("assets/javascript/lose.wav")
 
 //this will prevent the gems from having the same values
 function repeat() {
@@ -41,31 +44,33 @@ function assign (){
 //preloads the game when the page is loaded
 repeat();
 assign();
-$("#randomnumber").append("Target Score: " + randomNumber);
-$("#yourscore").append("Your Score: " + score);
-$("#wins").append("Wins: " + wins);
-$("#losses").append("Losses: " + losses);
+$("#randomnumber").text("Target Score: " + randomNumber);
+$("#yourscore").text("Your Score: " + score);
+$("#wins").text("Wins: " + wins);
+$("#losses").text("Losses: " + losses);
 
 //Main function for detection crystal clicking and adding score
-$("button").click(function(){
+$(".gems").click(function(){
 	if (flag === false){
+		audioPing.play();
 		score = score + parseInt(this.value);
-		$("#yourscore").empty();
-		$("#yourscore").append("Your Score: " + score);
+		$("#yourscore").text("Your Score: " + score);
 
 		if (score === randomNumber){
+			audioWin.play();
 			alert("You WIN! Hit the reset button to play again!");
 			flag = true;
 			wins = wins + 1;
-			$("#wins").empty();
-			$("#wins").append("Wins: " + wins);
+			$("#wins").text("Wins: " + wins);
 		} else if (score > randomNumber){
+			audioLose.play();
 			alert("You LOSE! Hit the reset button to play again!") ;
 			flag = true;
 			losses = losses + 1;
-			$("#losses").empty();
-			$("#losses").append("Losses: " + losses);
+			$("#losses").text("Losses: " + losses);
 		}
+	} else {
+		alert("Reset the game to play again")
 	}
 })
 
@@ -73,13 +78,11 @@ $(".reset").click(function(){
 	//to check for cheaters resetting mid game
 	if (score != 0 && flag === false ) {  
 		losses = losses + 1;
-		$("#losses").empty();
-		$("#losses").append("Losses: " + losses);
+		$("#losses").text("Losses: " + losses);
 	}
 
 	randomNumber = Math.floor(Math.random()*(100+1)) + 19;
-	$("#randomnumber").empty();
-	$("#randomnumber").append("Target Score: " + randomNumber);
+	$("#randomnumber").text("Target Score: " + randomNumber);
 
 	gemValue1 = Math.floor(Math.random()*12)+1;
 	gemValue2 = Math.floor(Math.random()*12)+1;
@@ -88,8 +91,7 @@ $(".reset").click(function(){
 	repeat();
 	assign();
 	score = 0;
-	$("#yourscore").empty();
-	$("#yourscore").append("Your Score: " + score);
+	$("#yourscore").text("Your Score: " + score);
 	flag = false;
 })
 
